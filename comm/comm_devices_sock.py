@@ -149,10 +149,11 @@ def disconnect(mode, params):
             conn.send(mesg.encode())
 
 def main():
-    data = conn.recv(1024)
-    if(data):
-        print("Reached here")
-        print(data.decode())
+    while(True):
+        data = conn.recv(1024)
+        if(data):
+            print("Reached here")
+            print(data.decode())
     while(True):
         data = conn.recv(1024)
         if(data):

@@ -17,14 +17,15 @@ HOST_pi = "73.149.23.208"
 PORT_pi = 40020
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST_pi,PORT_pi))
-s.send(b"Test")
 
 
+s.send(b"Reached Checkpoint1")
 with open('input.json') as doc:
     data = json.load(doc)
     U_ID = int(data['u_id'], 16)
     devices = data['devices']
 
+s.send(b"Reached 2")
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -33,7 +34,7 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-    s.send(b"L 1 5 1")
+    s.send(b"Reached 3")
     print("Request:")
     print(json.dumps(req, indent=4))
 
