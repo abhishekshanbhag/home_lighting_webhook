@@ -16,8 +16,9 @@ app = Flask(__name__)
 color_scheme = {"red": 5, "green": 6, "yellow": 7, "all": 18}
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect(("128.197.164.217",40001))
+s.connect(("128.197.164.217",40002))
 
+s.send(b"This is Heroku")
 
 print("I'm working")
 with open('comm/input.json') as doc:
@@ -52,8 +53,9 @@ def makeWebhookResult(req):
     if result.get("action") == "home.connect":
         socket_command += "C "
         parameters = result.get("parameters")
-        dev_id = parameters.get("number")
-        if dev_id in devices:
+        name = str(parameters.get("number"))
+        if name in devices:
+            dev_id = devices[name]
             speech = "This device already exists. You cannot use two devices with the same name. Please choose a new name for this device."
             return {
                 "speech": speech,
@@ -63,6 +65,7 @@ def makeWebhookResult(req):
                 "source": "my_server"
                 }
         else:
+            
             socket_command += str(len(devices) + 1)
             devices[dev_id] = len(devices) + 1
             print(socket_command)
