@@ -10,6 +10,8 @@ from flask import Flask
 from flask import request
 from flask import make_response
 
+# Flask app should start in global layout
+app = Flask(__name__)
 
 color_scheme = {"red": 5, "green": 6, "yellow": 7, "all": 18}
 
@@ -20,25 +22,20 @@ s.connect((HOST_pi,PORT_pi))
 
 
 s.send(b"Reached Checkpoint1")
-with open('input.json') as doc:
+with open('comm/input.json') as doc:
     data = json.load(doc)
     U_ID = int(data['u_id'], 16)
     devices = data['devices']
 
 s.send(b"Reached 2")
 
-# Flask app should start in global layout
-app = Flask(__name__)
-
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    s.send(b"Reached here")
     req = request.get_json(silent=True, force=True)
-    s.send(b"Reached 3")
     print("Request:")
     print(json.dumps(req, indent=4))
-
+    s.send(b"Reached inside")
     res = makeWebhookResult(req)
 
     res = json.dumps(res, indent=4)
@@ -48,7 +45,6 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    s.send(b"L 1 5 1")
     data = s.recv(1024)
     socket_command = ""
     result = req.get("result")
@@ -164,9 +160,9 @@ def makeWebhookResult(req):
         "source": "my_server"}
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 8004))
+    port = int(os.getenv('PORT', 5000))
 
-    print("Starting app on port", str(8004))
+    print("Starting app on port", str(port))
 
 
 
