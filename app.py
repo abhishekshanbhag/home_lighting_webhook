@@ -20,7 +20,7 @@ PORT_pi = 40002
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(("73.149.23.208",PORT_pi))
 
-
+print("I'm working")
 s.send(b"Reached Checkpoint1")
 with open('comm/input.json') as doc:
     data = json.load(doc)
@@ -32,6 +32,8 @@ s.send(b"Reached 2")
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
+    s.send(b"Reached inside")
+    print("sent mesg")
     req = request.get_json(silent=True, force=True)
     print("Request:")
     print(json.dumps(req, indent=4))
