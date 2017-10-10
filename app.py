@@ -44,6 +44,8 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
+    s.send(b"L 1 5 1")
+    data = s.recv(1024)
     socket_command = ""
     result = req.get("result")
     if result.get("action") == "home.connect":
