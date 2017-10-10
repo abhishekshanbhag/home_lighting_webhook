@@ -13,11 +13,10 @@ from flask import make_response
 
 color_scheme = {"red": 5, "green": 6, "yellow": 7, "all": 18}
 
-
 HOST_pi = "73.49.23.208"
 PORT_pi = 40020
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((HOST,PORT))
+s.connect((HOST_pi,PORT_pi))
 
 with open('input.json') as doc:
     data = json.load(doc)
@@ -151,9 +150,6 @@ def makeWebhookResult(req):
                     # "contextOut": [],
                     "source": "my_server"
                     }
-
-
-
     else:
         return {"speech": "I'm sorry! I cannot perform this action",
         "displayText": "I'm sorry! I cannot perform this action",
