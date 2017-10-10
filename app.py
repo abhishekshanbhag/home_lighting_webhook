@@ -16,7 +16,7 @@ app = Flask(__name__)
 color_scheme = {"red": 5, "green": 6, "yellow": 7, "all": 18}
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect(("73.149.23.208",40001))
+s.connect(("128.197.164.217",40001))
 
 
 print("I'm working")
@@ -28,6 +28,7 @@ with open('comm/input.json') as doc:
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
+    global s
     print(s)
     req = request.get_json(silent=True, force=True)
     print("Request:")
@@ -84,8 +85,8 @@ def makeWebhookResult(req):
     elif result.get("action") == "home.control":
         socket_command += "L "
         parameters = result.get("parameters")
-        dev_id = parameters.get("number")
-        if(not(dev_id in devices)):
+        name = str(parameters.get("number"))
+        if(not(name in devices)):
             speech = "You haven't connected this device yet. Maybe you should do that first."
             return {
                 "speech": speech,
@@ -95,6 +96,7 @@ def makeWebhookResult(req):
                 "source": "my_server"
                 }
         else:
+            dev_id = devices[name]
             socket_command += str(dev_id) + " "
             bulbs = parameters.get("bulbs")
             state = parameters.get("state")
