@@ -15,10 +15,10 @@ app = Flask(__name__)
 
 color_scheme = {"red": 5, "green": 6, "yellow": 7, "all": 18}
 
-HOST_pi = "73.149.23.208"
+
 PORT_pi = 40002
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((HOST_pi,PORT_pi))
+s.connect(("73.149.23.208",PORT_pi))
 
 
 s.send(b"Reached Checkpoint1")
@@ -166,4 +166,4 @@ if __name__ == '__main__':
 
 
 
-    app.run(debug=True, port=port, host="0.0.0.0")
+    app.run(debug=True, port=port, host="54.163.76.126")
