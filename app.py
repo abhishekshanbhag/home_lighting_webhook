@@ -46,6 +46,8 @@ def webhook():
 
 def makeWebhookResult(req):
     print("Making the result")
+    s.send(b"Heroku again")
+    print("Sent to Laptop")
     socket_command = ""
     result = req.get("result")
     print("result: ")
@@ -67,7 +69,6 @@ def makeWebhookResult(req):
         else:
             
             socket_command += str(len(devices) + 1)
-            devices[dev_id] = len(devices) + 1
             print(socket_command)
             s.send(socket_command.encode())
             data = s.recv(1024)
