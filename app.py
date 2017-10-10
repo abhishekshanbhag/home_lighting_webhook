@@ -15,10 +15,8 @@ app = Flask(__name__)
 
 color_scheme = {"red": 5, "green": 6, "yellow": 7, "all": 18}
 
-
-PORT_pi = 40003
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect(("73.149.23.208",PORT_pi))
+s.connect(("73.149.23.208",40003))
 
 print("I'm working")
 s.send(b"Reached Checkpoint1")
@@ -32,8 +30,6 @@ s.send(b"Reached 2")
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    s.send(b"Reached inside")
-    print("sent mesg")
     req = request.get_json(silent=True, force=True)
     print("Request:")
     print(json.dumps(req, indent=4))
