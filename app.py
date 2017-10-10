@@ -14,7 +14,7 @@ from flask import make_response
 color_scheme = {"red": 5, "green": 6, "yellow": 7, "all": 18}
 
 HOST_pi = "73.149.23.208"
-PORT_pi = 40020
+PORT_pi = 40021
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST_pi,PORT_pi))
 

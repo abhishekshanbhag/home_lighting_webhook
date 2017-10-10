@@ -12,7 +12,7 @@ with open('input.json') as doc:
 ser = serial.Serial('/dev/tty.usbserial-A601D97W')
 
 HOST = "192.168.1.147"
-PORT = 40020
+PORT = 40021
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST,PORT))
