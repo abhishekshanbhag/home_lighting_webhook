@@ -16,7 +16,7 @@ app = Flask(__name__)
 color_scheme = {"red": 5, "green": 6, "yellow": 7, "all": 18}
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect(("128.197.164.217",40002))
+s.connect(("128.197.164.217",50000))
 
 s.send(b"This is Heroku")
 
