@@ -33,6 +33,7 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
+    s.send(b"Reached here")
     req = request.get_json(silent=True, force=True)
     s.send(b"Reached 3")
     print("Request:")
