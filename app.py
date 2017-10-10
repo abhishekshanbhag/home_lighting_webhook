@@ -20,14 +20,11 @@ s.connect(("73.149.23.208",40001))
 
 
 print("I'm working")
-s.send(b"Reached Checkpoint1")
 with open('comm/input.json') as doc:
     data = json.load(doc)
     U_ID = int(data['u_id'], 16)
     devices = data['devices']
-
-s.send(b"Reached 2")
-
+    print(devices)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -46,8 +43,11 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
+    print("Making the result")
     socket_command = ""
     result = req.get("result")
+    print("result: ")
+    print(result)
     if result.get("action") == "home.connect":
         socket_command += "C "
         parameters = result.get("parameters")
@@ -64,6 +64,7 @@ def makeWebhookResult(req):
         else:
             socket_command += str(len(devices) + 1)
             devices[dev_id] = len(devices) + 1
+            print(socket_command)
             s.send(socket_command.encode())
             data = s.recv(1024)
 
